@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src ="second.js"></script>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone@7.15.4/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function RegistrationForm() {
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [submittedData, setSubmittedData] = useState(null);
+
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData({ ...formData, [name]: value });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setSubmittedData(formData);
+            };
+
+            return (
+                <div className="container">
+                    <h2>Registration Form</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="name">Name:</label>
+                            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="message">Message:</label>
+                            <textarea id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
+                        </div>
+                        <button type="submit" className="btn">Submit</button>
+                    </form>
+                    {submittedData && (
+                        <div className="output">
+                            <h3>Submitted Data</h3>
+                            <p><strong>Name:</strong> {submittedData.name}</p>
+                            <p><strong>Email:</strong> {submittedData.email}</p>
+                            <p><strong>Message:</strong> {submittedData.message}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<RegistrationForm />, document.getElementById('root'));
+    </script>
+</body>
+</html>
